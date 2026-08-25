@@ -23,7 +23,7 @@ spec:
       # 关联你的 Service 和 Ingress/Gateway
       steps:
         - setWeight: 20   # 第一步：把 20% 的流量切给新版本（即 5 个 Pod 里有 1 个跑新版）
-        - pause: {duration: 10m} # 暂停 5 分钟，让你有时间观察错误率、指标或访问体验
-        - setWeight: 50   # 第二步：放量到 50%
+        - pause: {duration: 10m} # 暂停 10 分钟，让你有时间观察错误率、指标或访问体验
+        - setWeight: 50   # 第二步：放量到 50% 3 个新版本 Pod 和 2 个旧版本稳定版 Pod
         - pause: {duration: 20m}
         - setWeight: 100  # 第三步：100% 全量切到新版本
