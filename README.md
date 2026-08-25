@@ -96,3 +96,40 @@ NAME                                                KIND        STATUS        AG
    └──⧉ frontend-react-rollout-7bf47c6544           ReplicaSet  • ScaledDown  113m  
 allen@maxwell ~ % 
 
+
+1. Refresh（刷新 / 重新检查）
+核心作用：让 Argo CD 重新去检查你的 Git 仓库和 Kubernetes 集群当前的实际状态，看看有没有发生变化。
+
+它做什么：
+
+它不会把任何配置应用到集群中。
+
+它会去拉取 Git 仓库最新的 Commit，并重新运行 Helm / Kustomize（如果你的应用配置了它们）来计算出最新的期望状态（Desired State）。
+
+同时，它会重新查询 Kubernetes 集群中资源的真实状态（Actual State），用来更新 Argo CD 界面上的 Diff（差异对比）。
+
+什么时候用：
+
+你刚向 Git 仓库 Push 了代码，但 Argo CD 界面上还没有显示出变化，你想让它立刻去检查。
+
+你在集群里通过其他方式（比如 kubectl）手动修改了某些东西，你想让 Argo CD 尽快发现这些差异。
+
+2. Sync（同步 / 部署）
+核心作用：把 Git 仓库里的配置（期望状态）真正应用（Apply）到 Kubernetes 集群中去。
+
+它做什么：
+
+它会对比当前的期望状态（Git）和集群的实际状态（Live State）。
+
+如果发现不一致，它就会执行 kubectl apply，把 Git 里的最新变更落地到集群里（比如创建新 Pod、更新镜像标签、修改 ConfigMap 等）。
+
+什么时候用：
+
+当你的应用设置了 Prune / Auto-Sync 关闭（手动同步模式），Git 仓库有更新后，你需要点击 Sync 来触发实际的上线部署。
+
+当某次部署卡住或失败，你修正了问题后，需要手动触发 Sync 来重新部署。
+
+💡 一个形象的比喻
+Refresh 像是“对账”：会计拿着账本（Git）和仓库里的货（Kubernetes）对一遍，看看账目和实物是不是对得上，不发生货物的搬动。
+
+Sync 像是“进货/发货”：根据对好的账单差异，真正把货搬进仓库或者从仓库搬走，产生实际的集群变更动作。
