@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 317429619308.dkr.ecr.us-east-1.amazonaws.com/frontend-react:latest # 👈 CI 会自动更新这里
+          image: 317429619308.dkr.ecr.us-east-1.amazonaws.com/frontend-react:0.0.4
           ports:
             - containerPort: 80
           resources:
