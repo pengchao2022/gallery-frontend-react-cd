@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: frontend-react-rollout
+  namespace: frontend-prod
+spec:
+  replicas: 5 # 假设我们启动 5 个副本方便看比例
+  selector:
+    matchLabels:
+      app: frontend-react
+  template:
+    metadata:
+      labels:
+        app: frontend-react
+    spec:
+      containers:
+        - name: frontend-react
+          image: 317429619308.dkr.ecr.us-east-1.amazonaws.com/frontend-react:1.0.5 # 新版本号
+          ports:
+            - containerPort: 80
+  strategy:
+    canary:
+      # 关联你的 Service 和 Ingress/Gateway
+      steps:
+        - setWeight: 20   # 👈 第一步：把 20% 的流量切给新版本（即 5 个 Pod 里有 1 个跑新版）
+        - pause: {duration: 5m} # 👈 暂停 5 分钟，让你有时间观察错误率、指标或访问体验
+        - setWeight: 50   # 👈 第二步：放量到 50%
+        - pause: {duration: 3m}
+        - setWeight: 100  # 👈 第三步：100% 全量切到新版本
