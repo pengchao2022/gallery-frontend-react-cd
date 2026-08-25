@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend-react
-          image: 317429619308.dkr.ecr.us-east-1.amazonaws.com/frontend-react:3.0.4
+          image: 317429619308.dkr.ecr.us-east-1.amazonaws.com/frontend-react:3.0.6
           ports:
             - containerPort: 80
   strategy:
