@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: frontend-furniture
+  namespace: argocd
+  labels:
+    environment: production
+    owner: frontend-team
+    tier: presentation
+spec:
+  description: "Project for modern furniture frontend applications"
+  
+  # 允许该 Project 从哪些 Git 仓库拉取配置
+  sourceRepos:
+    - 'https://github.com/pengchao2022/gallery-frontend-react-cd.git'
+    
+  # 限制该 Project 只能部署到集群的哪个命名空间中
+  destinations:
+    - namespace: frontend-prod
+      server: 'https://kubernetes.default.svc'
+      
+  # 允许部署哪些 Kubernetes 核心资源类型
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
