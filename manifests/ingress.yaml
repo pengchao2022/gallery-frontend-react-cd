@@ -9,8 +9,7 @@ metadata:
 spec:
   ingressClassName: alb  
   rules:
-    - host: furniture.awsmpc.asia
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
