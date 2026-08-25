@@ -4,20 +4,18 @@ metadata:
   name: frontend-react-ingress
   namespace: frontend-prod
   annotations:
-    kubernetes.io/ingress.class: "alb"
-    alb.ingress.kubernetes.io/scheme: "internet-facing" 
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
     alb.ingress.kubernetes.io/target-type: "ip"
-    # alb.ingress.kubernetes.io/cert-arn
-  
 spec:
+  ingressClassName: alb  
   rules:
-    - host: furniture.awsmpc.asia 
+    - host: furniture.awsmpc.asia
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: frontend-react-service 
+                name: frontend-react-service
                 port:
                   number: 80
