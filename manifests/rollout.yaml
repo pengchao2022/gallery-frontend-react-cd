@@ -20,7 +20,7 @@ spec:
             - containerPort: 80
   strategy:
     canary:
-      # 关联你的 Service 和 Ingress/Gateway
+      # 关联 Service 和 Ingress/Gateway
       steps:
         - setWeight: 20   # 第一步：把 20% 的流量切给新版本（即 5 个 Pod 里有 1 个跑新版）
         - pause: {duration: 2m} # 暂停 10 分钟，让你有时间观察错误率、指标或访问体验
