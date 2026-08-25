@@ -29,9 +29,9 @@ http://localhost:3100/rollouts
 # abort the canary 
 kubectl argo rollouts abort frontend-react-rollout -n frontend-prod
 
-# return the rollout
-kubectl argo rollouts promote frontend-react-rollout -n frontend-prod
 
+# get rollout status 
+kubectl argo rollouts get rollout frontend-react-rollout -n frontend-prod
 
 # go back to the last stable version
 kubectl argo rollouts restart frontend-react-rollout -n frontend-prod
