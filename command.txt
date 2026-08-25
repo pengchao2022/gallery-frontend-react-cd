@@ -7,12 +7,10 @@ brew install argoproj/tap/kubectl-argo-rollouts
 kubectl create namespace argo-rollouts
 kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
 
-
-
-
-# gallery-frontend-react-cd
-devops demo
-
+# check the argo rollouts pod 
+allen@maxwell ~ % kubectl get pods -n argo-rollouts
+NAME                             READY   STATUS    RESTARTS   AGE
+argo-rollouts-79d7dd7db7-c7jmf   1/1     Running   0          5h29m
 
 
 
